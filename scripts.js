@@ -79,6 +79,10 @@ buttons.forEach((button) => {
       testRegex.test(inputResult.textContent)
     ) {
       console.log("There is already an operator!");
+    } else if ((buttonPressed = "=" && historyVals.length == 0)) {
+      console.log(
+        "Entering equals without any operation wont yield any results"
+      );
     } else {
       historyVals.push(buttonPressed);
     }

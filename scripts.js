@@ -54,6 +54,7 @@ const inputHistory = document.querySelector(".input-history");
 
 //Creating a regex to identify operators
 let testRegex = /÷|×|−|\+| =/gim;
+let testForEquals = /=/gim;
 
 //Attach an event listener on them all iterating through the buttons array
 buttons.forEach((button) => {
@@ -78,10 +79,17 @@ buttons.forEach((button) => {
         buttonPressed == "=") &&
       testRegex.test(inputResult.textContent)
     ) {
-      console.log("There is already an operator!");
+      console.log("There is already an operator! Lets not add it to the array");
     } else if (buttonPressed == "=" && historyVals.length == 0) {
       console.log(
         "Entering equals without any operation wont yield any results"
+      );
+    } else if (
+      buttonPressed == "=" &&
+      testForEquals.test(historyVals.join("")) == true
+    ) {
+      console.log(
+        "If an equals is already present then don't save this button pressed equals to the array"
       );
     } else {
       historyVals.push(buttonPressed);
@@ -104,6 +112,7 @@ buttons.forEach((button) => {
     } else if (buttonPressed == "=" && historyVals.length == 0) {
       console.log("Dont display anything in history either");
     }
+
     //If the input-result only contains = then just display 0
     else if (buttonPressed == "=") {
       inputHistory.textContent += " =";
@@ -114,12 +123,17 @@ buttons.forEach((button) => {
       inputHistory.textContent = historyVals.join("");
     }
 
-    //WE ONLY NEED TO SHOW THE HISTORY OF THE OPERATIONS, CHECK CALCULATOR PROGRAM ON WINDOWS
+    //CALCULATOR BREAKS IF WE SPAM EQUALS
   });
 
   button.addEventListener("click", function performCalc() {
     //Search the input-result for an operator and save that in a variable
-    if (buttonPressed == "=" && historyVals.length != 0) {
+    if (
+      buttonPressed == "=" &&
+      historyVals.length !=
+        0 /* &&
+      testForEquals.test(inputHistory.textContent) == false */
+    ) {
       match = inputResult.textContent.match(/÷|×|−|\+| =/g);
       //console.log(match);
       let operatorToPass = match[0];

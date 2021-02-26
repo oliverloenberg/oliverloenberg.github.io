@@ -79,7 +79,7 @@ buttons.forEach((button) => {
       testRegex.test(inputResult.textContent)
     ) {
       console.log("There is already an operator!");
-    } else if ((buttonPressed = "=" && historyVals.length == 0)) {
+    } else if (buttonPressed == "=" && historyVals.length == 0) {
       console.log(
         "Entering equals without any operation wont yield any results"
       );
@@ -101,6 +101,8 @@ buttons.forEach((button) => {
       console.log("Delete is pressed");
       inputResult.textContent = historyVals.join("");
       inputHistory.textContent = historyVals.join("");
+    } else if (buttonPressed == "=" && historyVals.length == 0) {
+      console.log("Dont display anything in history either");
     }
     //If the input-result only contains = then just display 0
     else if (buttonPressed == "=") {
@@ -117,7 +119,7 @@ buttons.forEach((button) => {
 
   button.addEventListener("click", function performCalc() {
     //Search the input-result for an operator and save that in a variable
-    if (buttonPressed == "=") {
+    if (buttonPressed == "=" && historyVals.length != 0) {
       match = inputResult.textContent.match(/÷|×|−|\+| =/g);
       //console.log(match);
       let operatorToPass = match[0];

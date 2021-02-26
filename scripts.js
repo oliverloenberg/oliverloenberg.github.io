@@ -142,7 +142,12 @@ buttons.forEach((button) => {
       //Put the result into the historyVals array as a string
       historyVals = [operationResult.toString()];
       //Change the display to show the result of the calc, and make it a string
-      inputResult.textContent = operationResult.toString();
+      if (operationResult == "Infinity") {
+        inputResult.textContent = "Dividing by Zero are we?";
+        historyVals = [0];
+      } else {
+        inputResult.textContent = operationResult.toString();
+      }
 
       console.log(match);
       console.log(operatorToPass);
